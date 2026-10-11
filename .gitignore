@@ -29,3 +29,7 @@ Thumbs.db
 **/caddy
 frankenphp
 frankenphp-worker.php
+
+.direnv/
+database/*.sqlite
+database/*.sqlite-journal
