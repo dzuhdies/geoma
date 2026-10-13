@@ -1809,6 +1809,7 @@
 
                 initMap() {
                     this.map = L.map('map', {
+                        preferCanvas: true,
                         zoomControl: false,
                     }).setView([-7.9839, 112.6214], 13);
 
@@ -1971,19 +1972,19 @@
 
                         const self = this;
                         this.geoJsonLayer = L.geoJSON(geojsonData, {
+                            smoothFactor: 2,
                             style: function (feature) {
                                 return self.getPolygonStyle(feature.properties);
                             },
                             onEachFeature: function (feature, layer) {
                                 const p = feature.properties;
-                                const popupContent = `
-                                    <div class="p-3">
-                                        <div class="font-semibold text-sm" style="color:#93c5fd">${p.nmsls || p.nmsubsls}</div>
-                                        <div style="font-size:11px;color:#888;font-family:monospace;margin-top:2px">${p.idsubsls}</div>
-                                        <div style="font-size:12px;color:#ccc;margin-top:8px">Kel. ${p.nmdesa || '-'} · Kec. ${p.nmkec || '-'}</div>
-                                    </div>
-                                `;
-                                layer.bindPopup(popupContent);
+                                layer.bindPopup(() => `
+                                        <div class="p-3">
+                                            <div class="font-semibold text-sm" style="color:#93c5fd">${p.nmsls || p.nmsubsls}</div>
+                                            <div style="font-size:11px;color:#888;font-family:monospace;margin-top:2px">${p.idsubsls}</div>
+                                            <div style="font-size:12px;color:#ccc;margin-top:8px">Kel. ${p.nmdesa || '-'} · Kec. ${p.nmkec || '-'}</div>
+                                        </div>
+                                    `);
 
                                 layer.on('click', function (e) {
                                     L.DomEvent.stopPropagation(e);
