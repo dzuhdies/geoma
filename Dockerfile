@@ -34,8 +34,6 @@ RUN composer dump-autoload --optimize --no-dev --no-interaction \
  && chown -R www-data:www-data storage bootstrap/cache public database
 
 ENV XDG_CONFIG_HOME=/tmp XDG_DATA_HOME=/tmp
-ENV DB_CONNECTION=sqlite
-ENV DB_DATABASE=/app/storage/db/database.sqlite
 USER www-data
 
 EXPOSE 8000
